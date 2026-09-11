@@ -27,7 +27,7 @@ function Level23({ onBack }: Level23Props) {
 
     try {
       const response = await fetch(
-        "http://127.0.0.1:8000/ask-future",
+  `${import.meta.env.VITE_API_URL}/ask-future`,
         {
           method: "POST",
           headers: {
