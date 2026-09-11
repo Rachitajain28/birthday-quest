@@ -1,0 +1,608 @@
+.birthday-clock-screen {
+  min-height: 100vh;
+  width: 100%;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #32184b 0%,
+      #160820 50%,
+      #07020c 100%
+    );
+
+  color: white;
+  overflow: hidden;
+}
+
+
+/* =========================
+   INTRO
+   ========================= */
+
+.clock-intro {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  animation: introFade 2.5s ease forwards;
+}
+
+.clock-level {
+  font-size: 11px;
+  letter-spacing: 5px;
+  opacity: 0.5;
+}
+
+.clock-intro h1 {
+  font-size: clamp(55px, 10vw, 100px);
+  margin: 20px 0;
+  letter-spacing: -4px;
+}
+
+.clock-intro p {
+  font-size: 18px;
+  line-height: 1.7;
+  opacity: 0.65;
+}
+
+.intro-line {
+  width: 80px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.4);
+  margin-top: 30px;
+}
+
+
+/* =========================
+   STAGE
+   ========================= */
+
+.clock-stage {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+
+  padding-top: 40px;
+}
+
+.clock-heading {
+  text-align: center;
+  z-index: 20;
+}
+
+.clock-heading p {
+  font-size: 10px;
+  letter-spacing: 4px;
+  opacity: 0.4;
+  margin: 0;
+}
+
+.clock-heading h1 {
+  font-size: 30px;
+  margin: 10px 0 0;
+}
+
+
+/* =========================
+   CLOCK SCENE
+   ========================= */
+
+.clock-scene {
+  width: 760px;
+  height: 760px;
+
+  max-width: 95vw;
+  max-height: 75vh;
+
+  position: relative;
+
+  margin-top: 15px;
+}
+
+
+/* =========================
+   MEMORY LAYER
+   ========================= */
+
+.memory-layer {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 1;
+}
+
+
+/* =========================
+   MEMORY PHOTO
+   ========================= */
+
+.memory-photo {
+  position: absolute;
+
+  width: 105px;
+  height: 105px;
+
+  padding: 5px;
+
+  transform: translate(-50%, -50%);
+
+  background: rgba(255, 255, 255, 0.12);
+
+  border: 1px solid rgba(255, 255, 255, 0.15);
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 15px 35px rgba(0, 0, 0, 0.4);
+
+  animation: memoryAppear 0.7s ease forwards;
+
+  z-index: 1;
+}
+
+.memory-photo img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  border-radius: 8px;
+
+  display: block;
+}
+
+.memory-photo span {
+  position: absolute;
+
+  right: 7px;
+  bottom: 7px;
+
+  width: 20px;
+  height: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  font-size: 9px;
+}
+
+
+/* =========================
+   CLOCK
+   ========================= */
+
+.clock-face {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 390px;
+  height: 390px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  border: 2px solid rgba(255, 255, 255, 0.18);
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 255, 255, 0.07),
+      rgba(255, 255, 255, 0.015)
+    );
+
+  box-shadow:
+    0 0 70px rgba(255, 255, 255, 0.04),
+    inset 0 0 50px rgba(255, 255, 255, 0.03);
+
+  z-index: 5;
+}
+
+
+/* =========================
+   NUMBERS
+   ========================= */
+
+.clock-number {
+  position: absolute;
+
+  width: 35px;
+  height: 30px;
+
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+
+  color: rgba(255, 255, 255, 0.3);
+
+  transition:
+    color 0.4s ease,
+    text-shadow 0.4s ease;
+}
+
+.clock-number.visited-number {
+  color: white;
+
+  text-shadow:
+    0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+
+/* =========================
+   CLOCK HAND
+   ========================= */
+
+.clock-hand {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 4px;
+  height: 155px;
+
+  transform-origin: 50% 100%;
+
+  background: white;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 0 15px rgba(255, 255, 255, 0.6);
+
+  z-index: 9;
+
+  transition:
+    transform 1.2s
+    cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+
+/* =========================
+   CENTER PIN
+   ========================= */
+
+.clock-center {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 22px;
+  height: 22px;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.25);
+
+  border: 3px solid white;
+
+  z-index: 15;
+
+  box-shadow:
+    0 0 20px rgba(255, 255, 255, 0.6);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clock-center-dot {
+  width: 8px;
+  height: 8px;
+
+  border-radius: 50%;
+
+  background: white;
+}
+
+
+/* =========================
+   INSTRUCTION
+   ========================= */
+
+.clock-instruction {
+  margin-top: -5px;
+
+  font-size: 12px;
+
+  opacity: 0.35;
+
+  letter-spacing: 1px;
+}
+
+
+/* =========================
+   BIRTHDAY REVEAL
+   ========================= */
+
+.birthday-reveal {
+  min-height: 100vh;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  padding: 40px 20px;
+
+  position: relative;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at center,
+      #52226f,
+      #1c082a 50%,
+      #07020c
+    );
+}
+
+.birthday-content {
+  position: relative;
+  z-index: 5;
+
+  max-width: 1000px;
+}
+
+.birthday-small {
+  font-size: 11px;
+
+  letter-spacing: 5px;
+
+  opacity: 0.6;
+}
+
+.birthday-content h1 {
+  font-size: clamp(65px, 13vw, 150px);
+
+  line-height: 0.82;
+
+  letter-spacing: -6px;
+
+  margin: 25px 0;
+
+  animation: birthdayPop 1s ease forwards;
+}
+
+.birthday-name {
+  font-size: 18px;
+  opacity: 0.7;
+}
+
+
+/* =========================
+   FINAL PHOTOS
+   ========================= */
+
+.final-memories {
+  margin-top: 40px;
+
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+}
+
+.final-memory {
+  width: 75px;
+  height: 75px;
+
+  object-fit: cover;
+
+  border-radius: 10px;
+
+  opacity: 0;
+
+  animation: finalPhotoAppear 0.5s ease forwards;
+}
+
+
+/* =========================
+   CONFETTI
+   ========================= */
+
+.confetti-container {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+
+  top: -20px;
+
+  width: 7px;
+  height: 14px;
+
+  background: white;
+
+  opacity: 0.8;
+
+  animation:
+    confettiFall
+    linear
+    infinite;
+}
+
+
+/* =========================
+   ANIMATIONS
+   ========================= */
+
+@keyframes introFade {
+  0% {
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes memoryAppear {
+  from {
+    opacity: 0;
+    transform:
+      translate(-50%, -50%)
+      scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translate(-50%, -50%)
+      scale(1);
+  }
+}
+
+@keyframes birthdayPop {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes finalPhotoAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes confettiFall {
+  from {
+    transform:
+      translateY(-20px)
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      translateY(110vh)
+      rotate(720deg);
+  }
+}
+
+
+/* =========================
+   MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+
+  .clock-scene {
+    width: 95vw;
+    height: 95vw;
+  }
+
+  .clock-face {
+    width: 280px;
+    height: 280px;
+  }
+
+  .clock-hand {
+    height: 110px;
+  }
+
+  .memory-photo {
+    width: 65px;
+    height: 65px;
+  }
+
+  .clock-number {
+    font-size: 13px;
+  }
+
+  .birthday-content h1 {
+    letter-spacing: -3px;
+  }
+
+  .final-memory {
+    width: 55px;
+    height: 55px;
+  }
+}
+
+.continue-level23-button {
+  margin-top: 30px;
+
+  padding: 14px 28px;
+
+  border: none;
+  border-radius: 14px;
+
+  background: white;
+  color: #111;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  letter-spacing: 1px;
+
+  cursor: pointer;
+
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.continue-level23-button:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
